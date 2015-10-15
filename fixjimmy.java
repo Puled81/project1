@@ -36,8 +36,8 @@ void reset() {
   dy= .75;
   X= random(0,700);
   Y= random(301,700);
-  DX= 1;
-  DY= 1;
+  DX= random(-1,+1);
+  DY= random(-1,+1;
 
 
 }{
