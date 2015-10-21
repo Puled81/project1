@@ -8,20 +8,26 @@ float horizon;
 float sunX, sunY;
 float X, Y;        //Monster 1 position
 float DX, DY;       // monster 1 speed
+float coinx, coiny;
+
+float score;
 float top,bottom,right,left;
 
 //// SETUP:  window size, initialization (start in middle of screen).
 void setup() {
   size( 700,700);
   horizon=  height/4;
-  x=  200;
-  y=  250;
-  dx= .75;
-  dy= .75;
+  x=  170;
+  y=  125;
+  dx= 0;
+  dy= 0;
   X= random(0,700);
   Y= random(301,700);
   DX= random(-1,+1);
   DY= random(-1,+1);
+  coinx= random(400,680);
+  coiny= random(450,680);
+  score= 50;
   top= 0;
   bottom= 700;
   right= 700;
@@ -30,14 +36,17 @@ void setup() {
   reset();
 }
 void reset() {
-  x=  200;
-  y=  250;
+  x=  170;
+  y=  125;
   dx= .75;
   dy= .75;
-  X= random(0,700);
-  Y= random(301,700);
-  DX= random(-1,+1);
-  DY= random(-1,+1);
+  X= random(0,680);
+  Y= random(301,680);
+  DX= random(-3,+3);
+  DY= random(-3,+3);
+  coinx= random(400,680);
+  coiny= random(450,680);
+  score-= 50;
 
 
 }{
@@ -49,6 +58,7 @@ void reset() {
 
 //// NEXT FRAME:  scene, action, show.
 void draw() {
+  collisions();
   //// SCENE:  sky, sun, tree, house, etc.
   background( 100,200,250 );                // sky
   fill( 255,255,0 );
@@ -65,14 +75,20 @@ void draw() {
   
   
   fill(255,0,0);
-  rect( 150,horizon, 120,horizon-50);  // house
+  rect( 150,75, 90,100);  // house
   fill(139,80,13);
-  rect(230,250,25,50);
+  rect(200,125,25,50);
   fill(0);
-  triangle(150,horizon,271,horizon,210,90);
+  triangle(151,75,240,75,196,20);
   fill(255);
-  rect(165,200,30,30);
-  rect(225,200,30,30);
+  rect(155,90,30,30);
+  rect(205,90,30,30);
+  
+  //Scoreing
+  textSize(20);
+  fill(0);
+  text("Score",50,50);
+  text(score,100,50);
   
                                       
 
@@ -145,17 +161,25 @@ void draw() {
   rect(X,Y,30,70,10);
   ellipse(X+15,Y-15,35,35);
 
+    //Coin (gold)
+  fill(255,255,0);
+  ellipse(coinx,coiny,10,10);
 }
 
+void collisions(){
+  //if( 120 < X < horizon-50) { DX = -DX;}
+  if( dist ( x,y-15,X,Y-60) < 30) {reset();}
+  if( dist ( x,y+15,X,Y+70) < 30) {reset();}
+}
 
 //////// HANDLERS:  mouse clicks, keys
-//void mousePressed() {
- // x=  mouseX;                             // Set (x,y) to mouse
- // y=  mouseY;
+void mousePressed() {
+  x=  mouseX;                             // Set (x,y) to mouse
+  y=  mouseY;
   //
  // dx=  random( -6, +6 );                  // random speed.
   //dy=  random( -4, +4 );
-//}
+}
 
 void keyPressed() {
   if (key == 'q') {
