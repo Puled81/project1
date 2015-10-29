@@ -10,7 +10,7 @@ float X, Y;        //Monster 1 position
 float DX, DY;       // monster 1 speed
 float coinx, coiny;
 
-float score;
+int score;
 float top,bottom,right,left;
 
 //// SETUP:  window size, initialization (start in middle of screen).
@@ -87,7 +87,7 @@ void draw() {
   //Scoreing
   textSize(20);
   fill(0);
-  text("Score",50,50);
+  text("Score",30,50);
   text(score,100,50);
   
                                       
@@ -174,8 +174,8 @@ void collisions(){
 
 //////// HANDLERS:  mouse clicks, keys
 void mousePressed() {
-  x=  mouseX;                             // Set (x,y) to mouse
-  y=  mouseY;
+  //x=  mouseX;                             // Set (x,y) to mouse
+  //y=  mouseY;
   //
  // dx=  random( -6, +6 );                  // random speed.
   //dy=  random( -4, +4 );
